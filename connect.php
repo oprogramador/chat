@@ -2,7 +2,8 @@
 require_once 'util.php';
 
 
-$partner_id = Util::getSessionData('partner_id') = $_GET['partner_id'];
+$partner_id = $_GET['partner_id'];
+Util::toSession('partner_id', $partner_id);
 
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');
 if ($conn->connect_error) {
