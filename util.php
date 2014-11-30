@@ -24,7 +24,7 @@ class Util {
 
     public static function toSession($index, $value) {
         if(!isset($_SESSION)) session_start();
-        $_SESSION[$index] = $value;
+        Util::toSession($index, $value);
     }
 
     public static function query($sql, $args) {
