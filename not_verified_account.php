@@ -4,11 +4,10 @@
 </head>
 <body>
 
-<?php 
+<?php
+require_once 'util.php'; 
 
-require_once 'util.php';
 
-session_start();
 $login = Util::getLogin();
 
 ?>

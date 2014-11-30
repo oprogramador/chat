@@ -1,10 +1,10 @@
 <?php
+require_once 'util.php';
 require_once 'mail.php';
 require_once 'generSite.php';
 
 
 $login = $_POST['login'];
-if(!isset($_SESSION)) session_start();
 
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');
 if ($conn->connect_error) {
@@ -17,13 +17,13 @@ $result = $conn->query($sql);
 $go = true;
 if($result) if($result->num_rows == 0) $go = false;
 if(!$result || !$go) {
-    $_SESSION['errors'] = 'Such email has been not found.';
+    Util::toSession('errors', 'Such email has been not found.');
     header("Location: password_reset_view.php");
 }
 
 $row = $result->fetch_assoc();
-$_SESSION['login_id'] = $id = $row['id'];
-$_SESSION['login'] = $row['name'];
+Util::toSession('login_id', $id = $row['id']);
+Util::toSession('login', $row['name']);
 $email = $row['email'];
 $conn->close();
 $link = generVerifSite($id);

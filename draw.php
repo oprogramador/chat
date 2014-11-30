@@ -1,4 +1,5 @@
 <?php
+require_once 'util.php';
 header('Content-Type: image/png');
 
 function breakLine($str, $n) {

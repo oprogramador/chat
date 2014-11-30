@@ -11,8 +11,9 @@
 <div>Repeat password: <input type="password" name="rpassword"/></div>
 <div>E-mail: <input name="email"/></div>
 <button>OK</button>
-<?php 
-session_start();
+<?php
+require_once 'util.php'; 
+
 if(!isset($_SESSION['errors'])) $_SESSION['errors']='';
 echo $_SESSION['errors'];
 ?>

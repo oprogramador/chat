@@ -14,8 +14,9 @@ Password: <input type="password" name="password"/>
 <a href="register_view.php">register</a>
 <a href="password_reset_view.php">I have forgotten my password.</a>
 <a href="login_reset_view.php">I have forgotten my login.</a>
-<?php 
-session_start();
+<?php
+require_once 'util.php'; 
+
 if(!isset($_SESSION['errors'])) $_SESSION['errors']='';
 echo $_SESSION['errors'];
 ?>

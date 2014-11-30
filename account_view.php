@@ -5,9 +5,10 @@
 <body>
 
 <?php
-session_start();
+require_once 'util.php';
+
 $login = Util::getLogin();
-$login_id = $_SESSION['login_id'];
+$login_id = Util::getLoginId();
 
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');
 if ($conn->connect_error) {
@@ -17,7 +18,7 @@ if ($conn->connect_error) {
 $sql = "SELECT id, password, email FROM users WHERE id='".$conn->real_escape_string($login_id)."' LIMIT 1";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
-$_SESSION['row'] = $row;
+Util::toSession('row', $row)
 
 ?>
 

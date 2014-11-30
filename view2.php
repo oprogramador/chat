@@ -4,8 +4,9 @@
 </head>
 <body>
 
-<?php  
-session_start();
+<?php
+require_once 'util.php';  
+
 $login = Util::getLogin();
 
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');

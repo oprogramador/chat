@@ -4,11 +4,12 @@
 </head>
 <body>
 <?php
-session_start();
+require_once 'util.php';
+
 $login = Util::getLogin();
-$partner = $_SESSION['partner'];
-$login_id = $_SESSION['login_id'];
-$partner_id = $_SESSION['partner_id'];
+$partner = Util::getSessionData('partner');
+$login_id = Util::getLoginId();
+$partner_id = Util::getSessionData('partner_id');
 ?>
 <a href="logout.php">log out</a>
 <a href="account_view.php">account settings</a>

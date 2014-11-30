@@ -1,8 +1,9 @@
 <?php
+require_once 'util.php';
 
-session_start();
-$login = $_SESSION['login_id'];
-$partner = $_SESSION['partner_id'];
+
+$login = Util::getLoginId();
+$partner = Util::getSessionData('partner_id');
 $text = $_POST['message'];
 echo 'login='.$login;
 echo 'partner='.$partner;

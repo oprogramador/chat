@@ -1,4 +1,5 @@
 <?php
+require_once 'util.php';
 
 function getDomain() {
     return 'localhost/cgi/ajax_chat';
@@ -20,14 +21,15 @@ function randStr($str, $n) {
 
 function generVerifSite($id) {
     $site = <<<'DELIM'
-  <?php
+<?php
+require_once '..'.DIRECTORY_SEPARATOR.'util.php';
 $id = 
 DELIM
     .$id.
     <<<'DELIM'
 ;
-session_start();
-$_SESSION['login_id'] = $id;
+
+Util::toSession('login_id', $id);
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');
 $id = $conn->real_escape_string(''.$id);
 if ($conn->connect_error) {
@@ -37,7 +39,7 @@ $sql = "UPDATE users SET verified=1 WHERE id=$id";
 $result = $conn->query($sql);
 $sql = "SELECT name FROM users WHERE id=$id LIMIT 1";
 $result = $conn->query($sql);
-$_SESSION['login'] = $login = $result->fetch_assoc()['name'];
+Util::toSession('login', $login = $result->fetch_assoc()['name']);
 $conn->close();
 header('Location: ..'.DIRECTORY_SEPARATOR.'view2.php');    
 ?>

@@ -1,8 +1,9 @@
 <?php
+require_once 'util.php';
 
-session_start();
-$login_id = $_SESSION['login_id'];
-$password = $_SESSION['row']['password']; 
+
+$login_id = Util::getLoginId();
+$password = Util::getSessionData('row')['password']; 
 $cpassword = $_POST['cpassword'];
 
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');
@@ -16,7 +17,7 @@ $hashpass = $result->fetch_assoc()['hp'];
 
 if($hashpass != $password) {
     echo 'neq';
-    $_SESSION['errors'] = 'incorrect password';
+    Util::toSession('errors', 'incorrect password');
     $conn->close();
     header('Location: account_view.php');
 }

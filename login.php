@@ -1,10 +1,11 @@
 <?php
+require_once 'util.php';
 
 $login = $_POST['login'];
 $password = $_POST['password'];
 
-session_start();
-$_SESSION['login'] = $login;
+
+Util::toSession('login', $login);
 
 $conn = new mysqli('localhost', 'root', 'pass', 'chat');
 if ($conn->connect_error) {
@@ -35,14 +36,14 @@ if(!$exists && $password=='') {
 if($go) {
     $sql = "SELECT id FROM users WHERE name='".$conn->real_escape_string($login)."' limit 1";
     $result = $conn->query($sql);
-    $_SESSION['login_id'] = $id = $result->fetch_assoc()['id'];
+    Util::toSession('login_id', $id = $result->fetch_assoc()['id']);
     $sql = "SELECT verified FROM users WHERE id=".$conn->real_escape_string($id)." limit 1";
     $result = $conn->query($sql);
     $verified = $result->fetch_assoc()['verified'];
     $conn->close();
     header("Location: ".(!$exists || $verified ? "view2.php" : "not_verified_account.php"));
 } else {
-    $_SESSION['errors'] = 'Not correct username or password';
+    Util::toSession('errors', 'Not correct username or password');
     header("Location: view1.php");
 }
 //$conn->close();
