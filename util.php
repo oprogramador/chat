@@ -9,7 +9,6 @@ class Util {
 
     public static function getSessionData($index) {
         if(!isset($_SESSION)) session_start();
-        var_dump($_SESSION);
         if(isset($_SESSION[$index])) return $_SESSION[$index];
         else {
             //self::clearSession();

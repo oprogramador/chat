@@ -11,7 +11,6 @@ php ~/composer.phar update &&
 sudo chmod -R 777 . &&
 sudo mkdir -p /var/www/html/cgi/ && 
 if [ ! -L /var/www/html/cgi/ajax_chat ]; then
-    echo 'if'
     sudo ln -s `realpath .` /var/www/html/cgi/ajax_chat
 fi &&
 sudo /etc/init.d/apache2 restart && 
