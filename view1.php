@@ -4,6 +4,10 @@
 </head>
 <body>
 
+<?php
+require_once 'util.php'; 
+if(Util::getLoginId() != "") header('Location: view2.php')
+?>
 
 <form action="login.php" method="post">
 Login: <input name="login"/>
@@ -15,7 +19,6 @@ Password: <input type="password" name="password"/>
 <a href="password_reset_view.php">I have forgotten my password.</a>
 <a href="login_reset_view.php">I have forgotten my login.</a>
 <?php
-require_once 'util.php'; 
 echo Util::getSessionData('errors'); 
 ?>
 
