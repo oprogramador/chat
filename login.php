@@ -20,8 +20,8 @@ if(!$exists && $password=='') {
 }
 
 if($go) {
-    $result = Util::query("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login]);
-    Util::toSession('login_id', $id = $result->fetch_assoc()['id']);
+    $id = Util::queryCell("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login], "id");
+    Util::toSession('login_id', $id);
     $verified = Util::queryCell("SELECT verified FROM users WHERE id=%s LIMIT 1", [$id], 'verified');
     header("Location: ".(!$exists || $verified ? "view2.php" : "not_verified_account.php"));
 } else {

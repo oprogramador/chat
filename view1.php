@@ -16,9 +16,7 @@ Password: <input type="password" name="password"/>
 <a href="login_reset_view.php">I have forgotten my login.</a>
 <?php
 require_once 'util.php'; 
-
-if(!isset($_SESSION['errors'])) $_SESSION['errors']='';
-echo $_SESSION['errors'];
+echo Util::getSessionData('errors'); 
 ?>
 
 </body>
