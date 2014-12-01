@@ -1,8 +1,5 @@
 database:
-    from_file
     foreign_key
-error_handling:
-    session_close
 chat:
     emoticons
     loadable_images
@@ -10,12 +7,13 @@ chat:
     ajax
     image:
         automatic_size
-user:
-    with_password
-    without_password
+security:
+    encryption
 routing:
     'warning: in register.php we need to know the domain name to send in verification mail'
-code:
-    refactor
 view:
     nice_css
+startup:
+    more_customized
+project:
+    view inheritance

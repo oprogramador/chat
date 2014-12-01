@@ -1,10 +1,12 @@
 <html>
 <head>
-
+<script src="vendor/components/jquery/jquery.min.js"></script>
 </head>
 <body>
 <?php
 require_once 'util.php';
+
+if(isset($_COOKIE['ajax'])) echo $_COOKIE['ajax'];
 
 $login = Util::getLogin();
 $partner = Util::getSessionData('partner');
@@ -18,7 +20,7 @@ Your name: <?= $login ?>
 <br/>
 Your partner: <?= $partner ?>
 <br/>
-<div style="overflow:scroll;width:400px;height:200px">
+<div style="overflow:scroll;width:400px;height:500px">
 <table>
 <?php
 $result = Util::query('select * from messages where (sender=%1$s and receiver=%2$s) or (sender=%2$s and receiver=%1$s)', [$partner_id, $login_id]);

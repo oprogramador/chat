@@ -13,12 +13,6 @@ function writeFile($name, $txt) {
     return 'http://'.getDomain().'/'.$dirname.'/'.$filename;
 }
 
-function randStr($str, $n) {
-    $ret = '';
-    for($i=0; $i<$n; $i++) $ret .= $str[rand(0,strlen($str)-1)];
-    return $ret;
-}
-
 function generVerifSite($id) {
     $site = <<<'DELIM'
 <?php
@@ -36,6 +30,5 @@ Util::toSession('login', $login);
 header('Location: ..'.DIRECTORY_SEPARATOR.'view2.php');    
 ?>
 DELIM;
-    return writeFile(randStr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 40), $site);
+    return writeFile(Util::randStrAlpha(40), $site);
 }
-

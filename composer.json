@@ -1,6 +1,7 @@
 {
     "require": {
         "swiftmailer/swiftmailer": "@stable",
-        "components/jquery": "dev-master"
+        "components/jquery": "dev-master",
+        "components/jquery-cookie": "1.4.1.2"
     }
 }

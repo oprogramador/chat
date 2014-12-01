@@ -9,6 +9,7 @@ echo 'login='.$login;
 echo 'partner='.$partner;
 
 Util::query("INSERT INTO messages (text, sender, receiver) VALUES ('%s', %s, %s)", [$text, $login, $partner]);
+setcookie('ajax', Util::randStrAlpha(40), time() + (86400 * 30), "/");
 
 header("Location: view3.php");
 
