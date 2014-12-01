@@ -1,6 +1,15 @@
 <html>
 <head>
 <script src="vendor/components/jquery/jquery.min.js"></script>
+<script>
+var imgsrc;
+$(document).ready(function() {
+    imgsrc = $('#img').attr('src');
+    setInterval(function() {
+        $('#img').attr('src',imgsrc+'?xxx='+Math.random());
+    }, 1000);
+});
+</script>
 </head>
 <body>
 <?php
@@ -22,16 +31,7 @@ Your partner: <?= $partner ?>
 <br/>
 <div style="overflow:scroll;width:400px;height:500px">
 <table>
-<?php
-$result = Util::query('select * from messages where (sender=%1$s and receiver=%2$s) or (sender=%2$s and receiver=%1$s)', [$partner_id, $login_id]);
-
-if($result) while($row = $result->fetch_assoc()) {
-   $me = $row['sender']==$login_id ? 'me' : 'he'; 
-?>
-    <tr><td><img src="draw.php?msg=<?= $row['id'] ?>&who=<?= $me ?>"/></td></tr>
-<?php
-    }
-?>
+    <tr><td><img id="img" src="draw.php"/></td></tr>
 </table>
 </div>
 <br/>
