@@ -27,6 +27,11 @@ class Util {
         $_SESSION[$index] = $value;
     }
 
+    public static function clearSession() {
+        if(!isset($_SESSION)) session_start();
+        $_SESSION = [];
+    }
+
     public static function query($sql, $args) {
         $conn = new mysqli('localhost', 'root', 'pass', 'chat');
         if ($conn->connect_error) {
@@ -39,5 +44,13 @@ class Util {
         $result = $conn->query(vsprintf($sql,$ar));
         $conn->close();
         return $result;
+    }
+
+    public static function queryRow($sql, $args) {
+        return self::query($sql, $args)->fetch_assoc();
+    }
+
+    public static function queryCell($sql, $args, $index) {
+        return self::queryRow($sql, $args)[$index];
     }
 }

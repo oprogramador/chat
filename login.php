@@ -4,50 +4,27 @@ require_once 'util.php';
 $login = $_POST['login'];
 $password = $_POST['password'];
 
-
 Util::toSession('login', $login);
 
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id FROM users WHERE name='".$conn->real_escape_string($login)."' LIMIT 1";
-$result = $conn->query($sql);
+$result = Util::query("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login]);
 
 $exists = false;
 $go = false;
 if($result) if($result->num_rows > 0) $exists = true;
 if(!$exists && $password=='') {
-    $sql = "INSERT INTO users (name) VALUES ('".$conn->real_escape_string($login)."')";
-    $conn->query($sql);
+    Util::query("INSERT INTO users (name) VALUES ('%s')", [$login]);
     $go = true;
 } else {
-    $sql = "SELECT id FROM users WHERE name='"
-        .$conn->real_escape_string($login).
-        "' and PASSWORD('".
-        $conn->real_escape_string($password).
-        "')=password limit 1";
-    $conn->query($sql);
-    $result = $conn->query($sql);
+    $result = Util::query("SELECT id FROM users WHERE name='%s' and PASSWORD('%s')=password limit 1", [$login, $password]);
     if($result) if($result->num_rows > 0) $go = true;
 }
 
 if($go) {
-    $sql = "SELECT id FROM users WHERE name='".$conn->real_escape_string($login)."' limit 1";
-    $result = $conn->query($sql);
+    $result = Util::query("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login]);
     Util::toSession('login_id', $id = $result->fetch_assoc()['id']);
-    $sql = "SELECT verified FROM users WHERE id=".$conn->real_escape_string($id)." limit 1";
-    $result = $conn->query($sql);
-    $verified = $result->fetch_assoc()['verified'];
-    $conn->close();
+    $verified = Util::queryCell("SELECT verified FROM users WHERE id=%s LIMIT 1", [$id], 'verified');
     header("Location: ".(!$exists || $verified ? "view2.php" : "not_verified_account.php"));
 } else {
     Util::toSession('errors', 'Not correct username or password');
     header("Location: view1.php");
 }
-//$conn->close();
-
-
-//header("Location: http://www.google.com");
-//die();

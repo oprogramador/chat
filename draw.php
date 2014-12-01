@@ -11,29 +11,11 @@ function breakLine($str, $n) {
     return $ret;
 }
 
-
 $msg = $_GET['msg'];
 $who = $_GET['who'];
 
+$msg = Util::queryCell('SELECT text FROM messages WHERE id=%s', [$msg], "text");
 
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = 'SELECT text FROM messages WHERE id='.$conn->real_escape_string($msg);
-
-$result = $conn->query($sql);
-
-if($result) if($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $msg = $row['text'];
-    }
-} else {
-    echo "0 results";
-}
-$conn->close();
 
 $size = 50;
 $nw = 20;

@@ -26,45 +26,16 @@ require_once '..'.DIRECTORY_SEPARATOR.'util.php';
 $id = 
 DELIM
     .$id.
-    <<<'DELIM'
+<<<'DELIM'
 ;
 
 Util::toSession('login_id', $id);
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-$id = $conn->real_escape_string(''.$id);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "UPDATE users SET verified=1 WHERE id=$id";
-$result = $conn->query($sql);
-$sql = "SELECT name FROM users WHERE id=$id LIMIT 1";
-$result = $conn->query($sql);
-Util::toSession('login', $login = $result->fetch_assoc()['name']);
-$conn->close();
+Util::query("UPDATE users SET verified=1 WHERE id=%s", [$id]);
+$login = Util::queryCell("SELECT name FROM users WHERE id=%s LIMIT 1", [$id], "name");
+Util::toSession('login', $login);
 header('Location: ..'.DIRECTORY_SEPARATOR.'view2.php');    
 ?>
 DELIM;
     return writeFile(randStr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 40), $site);
 }
 
-
-function generResetSite($id) {
-    $site = <<<'DELIM'
-  <?php
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "UPDATE users SET verified=1 WHERE id=
-DELIM
-    .$id.
-    <<<'DELIM'
- ";
-$result = $conn->query($sql);
-$conn->close();
-    
-echo 'sql='.$sql;
-?>
-DELIM;
-    return writeFile(randStr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 40), $site);
-}

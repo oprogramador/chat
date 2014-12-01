@@ -18,51 +18,11 @@ Your name: <?= $login ?>
 <br/>
 Your partner: <?= $partner ?>
 <br/>
-
-<?php
-/*
-<img src="draw.php?msg=<?php
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id, name FROM users ORDER BY name";
-$result = $conn->query($sql);
-$conn->close();
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-$result = $conn->query('select * from messages where sender='.
-    $conn->real_escape_string($partner_id).
-    " and receiver=".
-    $conn->real_escape_string($login_id).
-    " and time = (select max(time) from messages)");
-$data = $result->fetch_assoc();
-echo $data['text'];
-?>"/>
- */
-?>
 <div style="overflow:scroll;width:400px;height:200px">
 <table>
 <?php
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$result = Util::query('select * from messages where (sender=%1$s and receiver=%2$s) or (sender=%2$s and receiver=%1$s)', [$partner_id, $login_id]);
 
-$sql = "SELECT id, name FROM users ORDER BY name";
-$result = $conn->query($sql);
-$conn->close();
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-$result = $conn->query($sql='select * from messages where (sender='.
-    $conn->real_escape_string($partner_id).
-    " and receiver=".
-    $conn->real_escape_string($login_id).
-    ') or (sender='.
-    $conn->real_escape_string($login_id).
-    " and receiver=".
-    $conn->real_escape_string($partner_id).
-    ')');
-echo 'sql='.$sql;
 if($result) while($row = $result->fetch_assoc()) {
    $me = $row['sender']==$login_id ? 'me' : 'he'; 
 ?>

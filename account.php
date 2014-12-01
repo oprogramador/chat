@@ -5,31 +5,14 @@ require_once 'util.php';
 $login_id = Util::getLoginId();
 $password = Util::getSessionData('row')['password']; 
 $cpassword = $_POST['cpassword'];
-
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "select PASSWORD('".$conn->real_escape_string($cpassword)."') hp";
-$result = $conn->query($sql);
-$hashpass = $result->fetch_assoc()['hp'];
+$hashpass = Util::queryCell("select PASSWORD('%s') hp", [$cpassword], "hp");
 
 if($hashpass != $password) {
-    echo 'neq';
     Util::toSession('errors', 'incorrect password');
-    $conn->close();
     header('Location: account_view.php');
 }
 
-$sql = "UPDATE users SET name='"
-    .$conn->real_escape_string($_POST['login']).
-    "', password=PASSWORD('".
-    $conn->real_escape_string($_POST['password']).
-    "'), email='".
-    $conn->real_escape_string($_POST['email']).
-    "' WHERE id=".$conn->real_escape_string($login_id)." LIMIT 1";
-$result = $conn->query($sql);
-$conn->close();
+Util::query("UPDATE users SET name='%s', password=PASSWORD('%s'), email='%s' WHERE id=%s LIMIT 1", 
+    [$_POST['login'], $_POST['password'], $_POST['email'], $login_id]);
 //header('Location: view2.php');
 

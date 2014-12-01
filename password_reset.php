@@ -5,14 +5,7 @@ require_once 'generSite.php';
 
 
 $login = $_POST['login'];
-
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id, email FROM users WHERE name='".$conn->real_escape_string($login)."' LIMIT 1";
-$result = $conn->query($sql);
+$result = Util::query("SELECT id, email FROM users WHERE name='%s' LIMIT 1", [$login]);
 
 $go = true;
 if($result) if($result->num_rows == 0) $go = false;

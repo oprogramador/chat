@@ -9,15 +9,7 @@ require_once 'util.php';
 
 $login = Util::getLogin();
 $login_id = Util::getLoginId();
-
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id, password, email FROM users WHERE id='".$conn->real_escape_string($login_id)."' LIMIT 1";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
+$row = Util::queryRow("SELECT id, password, email FROM users WHERE id=%s LIMIT 1", [$login_id]);
 Util::toSession('row', $row)
 
 ?>

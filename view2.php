@@ -8,15 +8,7 @@
 require_once 'util.php';  
 
 $login = Util::getLogin();
-
-$conn = new mysqli('localhost', 'root', 'pass', 'chat');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id, name FROM users ORDER BY name";
-$result = $conn->query($sql);
-$conn->close();
+$result = Util::query("SELECT id, name FROM users ORDER BY name");
 ?>
 
 Your login: <?= $login ?>
