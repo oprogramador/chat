@@ -1,12 +1,13 @@
-#sudo apt-get update && 
-#sudo apt-get install realpath curl apache2 php5 php5-cli mysql-client mysql-server php5-mysql php5-gd && 
-#mysql -u root -p < createdb.sql && 
-#mysql -u root -p chat < db.sql && 
-#cd ~ &&
-#if [ ! -f composer.phar ]; then 
-    #curl -sS https://getcomposer.org/installer | php
-#fi && 
-#cd - &&
+sudo apt-get update && 
+sudo apt-get install realpath curl apache2 php5 php5-cli mysql-client mysql-server php5-mysql php5-gd && 
+printf "\n\nmysql:" &&
+mysql -u root -p < createdb.sql && 
+mysql -u root -p chat < db.sql && 
+cd ~ &&
+if [ ! -f composer.phar ]; then 
+    curl -sS https://getcomposer.org/installer | php
+fi && 
+cd - &&
 sudo chmod -R 777 .
 curdir=`pwd` &&
 php ~/composer.phar update && 
