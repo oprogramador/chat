@@ -9,6 +9,8 @@ require_once 'util.php';
 
 
 $login = Util::getLogin();
+$verified = Util::queryCell("SELECT verified FROM users WHERE name='%s' LIMIT 1", [$login], 'verified');
+if($verified) header('Location: view2.php');
 
 ?>
 

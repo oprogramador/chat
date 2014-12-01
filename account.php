@@ -14,5 +14,5 @@ if($hashpass != $password) {
 
 Util::query("UPDATE users SET name='%s', password=PASSWORD('%s'), email='%s' WHERE id=%s LIMIT 1", 
     [$_POST['login'], $_POST['password'], $_POST['email'], $login_id]);
-//header('Location: view2.php');
 
+header('Location: view2.php');
