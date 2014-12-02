@@ -8,7 +8,12 @@
 require_once 'util.php';  
 
 $login = Util::getLogin();
+
+$verified = Util::queryCell("SELECT verified FROM users WHERE BINARY name='%s' LIMIT 1", [$login], 'verified');
+if(!$verified) header('Location: not_verified_account.php');
+
 $result = Util::query("SELECT id, name FROM users ORDER BY name");
+
 ?>
 
 Your login: <?= $login ?>

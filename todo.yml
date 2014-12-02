@@ -17,3 +17,6 @@ startup:
     more_customized
 project:
     view inheritance
+    MVC
+    routing
+    own framework

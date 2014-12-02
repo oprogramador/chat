@@ -16,6 +16,6 @@ if($verified) header('Location: view2.php');
 
 Your login: <?= $login ?><br/>
 Your account has not been verified yet.
-<a href="view1.php">Home</a>
+<a href="logout.php">Log out</a>
 </body>
 </html>
