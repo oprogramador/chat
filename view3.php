@@ -7,6 +7,13 @@ $(document).ready(function() {
     imgsrc = $('#img').attr('src');
     setInterval(function() {
         $('#img').attr('src',imgsrc+'?xxx='+Math.random());
+        var img = $('#img');
+        console.log('h='+img.height());
+        if(img.height()>0) {
+            var cl = img.clone();
+            cl.attr('id', 'img'+Math.random());
+            $('#div').append(img.clone());
+        }
     }, 1000);
 });
 </script>
@@ -29,10 +36,8 @@ Your name: <?= $login ?>
 <br/>
 Your partner: <?= $partner ?>
 <br/>
-<div style="overflow:scroll;width:400px;height:500px">
-<table>
-    <tr><td><img id="img" src="draw.php"/></td></tr>
-</table>
+<div id="div" style="overflow:scroll;width:400px;height:500px">
+    <img id="img" src="draw.php"/>
 </div>
 <br/>
 <form action="save.php" method="post"> 
