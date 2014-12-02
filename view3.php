@@ -20,6 +20,11 @@ $(document).ready(function() {
 </head>
 <body>
 <?php
+/****************************************
+ *
+ * Author: Piotr Sroczkowski
+ *
+ ****************************************/
 require_once 'util.php';
 
 if(isset($_COOKIE['ajax'])) echo $_COOKIE['ajax'];

@@ -5,13 +5,15 @@
 <body>
 
 <?php
+/****************************************
+ *
+ * Author: Piotr Sroczkowski
+ *
+ ****************************************/
 require_once 'util.php';  
 
+Util::checkVerif();
 $login = Util::getLogin();
-
-$verified = Util::queryCell("SELECT verified FROM users WHERE BINARY name='%s' LIMIT 1", [$login], 'verified');
-if(!$verified) header('Location: not_verified_account.php');
-
 $result = Util::query("SELECT id, name FROM users ORDER BY name");
 
 ?>

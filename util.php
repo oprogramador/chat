@@ -1,4 +1,9 @@
 <?php
+/****************************************
+ *
+ * Author: Piotr Sroczkowski
+ *
+ ****************************************/
 
 class Util {
 
@@ -65,6 +70,12 @@ class Util {
 
     public static function randStrAlpha($n) {
         return self::randStr('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', $n);
+    }
+
+    public static function checkVerif() {
+        $login = self::getLogin();
+        $row = self::queryRow("SELECT password, verified FROM users WHERE BINARY name='%s' LIMIT 1", [$login]);
+        if(!$row['verified'] && $row['password']!='') header('Location: not_verified_account.php');
     }
 
 }

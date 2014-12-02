@@ -1,4 +1,9 @@
 <?php
+/****************************************
+ *
+ * Author: Piotr Sroczkowski
+ *
+ ****************************************/
 require_once 'util.php';
 
 $login = $_POST['login'];

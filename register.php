@@ -1,23 +1,20 @@
 <?php
+/****************************************
+ *
+ * Author: Piotr Sroczkowski
+ *
+ ****************************************/
 require_once 'util.php';
 require_once 'mail.php';
 require_once 'generSite.php';
-
+require_once 'check_data.php';
 
 $login = $_POST['login'];
 $password = $_POST['password'];
 $rpassword = $_POST['rpassword'];
 $email = $_POST['email'];
 
-if($password == '') {
-    Util::toSession('errors', 'password must not be empty');
-    header('Location: register_view.php');
-} else if($password != $rpassword) {
-    Util::toSession('errors', 'passwords are not the same');
-    header('Location: register_view.php');
-} else if($email == '') {
-    Util::toSession('errors', 'email must not be empty');
-    header('Location: register_view.php');
+if(checkData($password, $rpassword, $email, 'register_view.php')) {
 } else {
     $result = Util::query("SELECT id FROM users WHERE BINARY name='%s' LIMIT 1", [$login]);
     $add = true;
