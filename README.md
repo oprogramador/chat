@@ -2,6 +2,8 @@ Chat
 
 ==
 
+Documentation (in Polish): doc/doc.pdf
+
 To run the app, please do the following steps:
 
 install php5-gd
