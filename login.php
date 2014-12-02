@@ -6,7 +6,7 @@ $password = $_POST['password'];
 
 Util::toSession('login', $login);
 
-$result = Util::query("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login]);
+$result = Util::query("SELECT id FROM users WHERE BINARY name='%s' LIMIT 1", [$login]);
 
 $exists = false;
 $go = false;
@@ -15,12 +15,12 @@ if(!$exists && $password=='') {
     Util::query("INSERT INTO users (name) VALUES ('%s')", [$login]);
     $go = true;
 } else {
-    $result = Util::query("SELECT id FROM users WHERE name='%s' and PASSWORD('%s')=password limit 1", [$login, $password]);
+    $result = Util::query("SELECT id FROM users WHERE BINARY name='%s' and PASSWORD('%s')=password limit 1", [$login, $password]);
     if($result) if($result->num_rows > 0) $go = true;
 }
 
 if($go) {
-    $id = Util::queryCell("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login], "id");
+    $id = Util::queryCell("SELECT id FROM users WHERE BINARY name='%s' LIMIT 1", [$login], "id");
     Util::toSession('login_id', $id);
     $verified = Util::queryCell("SELECT verified FROM users WHERE id=%s LIMIT 1", [$id], 'verified');
     header("Location: ".(!$exists || $verified ? "view2.php" : "not_verified_account.php"));

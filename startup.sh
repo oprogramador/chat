@@ -8,7 +8,7 @@ if [ ! -f composer.phar ]; then
     curl -sS https://getcomposer.org/installer | php
 fi && 
 cd - &&
-sudo chmod -R 777 .
+sudo chmod -R 777 . &&
 curdir=`pwd` &&
 php ~/composer.phar update && 
 while [ `pwd` != '/' ]; do

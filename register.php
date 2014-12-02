@@ -22,12 +22,12 @@ if($password != $rpassword) {
     header('Location: register_view.php');
 }
 
-$result = Util::query("SELECT id FROM users WHERE name='%s' LIMIT 1", [$login]);
+$result = Util::query("SELECT id FROM users WHERE BINARY name='%s' LIMIT 1", [$login]);
 $add = true;
 if($result) if($result->num_rows > 0) $add = false;
 if($add) {
     Util::query("INSERT INTO users (name, password, email) VALUES ('%s', PASSWORD('%s'), '%s')", [$login, $password, $email]);
-    $row = Util::queryRow("SELECT id, name FROM users WHERE name='%s' LIMIT 1", [$login]);
+    $row = Util::queryRow("SELECT id, name FROM users WHERE BINARY name='%s' LIMIT 1", [$login]);
     Util::toSession('login_id', $id = $row['id']);
     Util::toSession('login', $row['name']);
     $link = generVerifSite($id);

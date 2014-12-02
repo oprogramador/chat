@@ -5,7 +5,7 @@ require_once 'generSite.php';
 
 
 $login = $_POST['login'];
-$result = Util::query("SELECT id, email FROM users WHERE name='%s' LIMIT 1", [$login]);
+$result = Util::query("SELECT id, email FROM users WHERE BINARY name='%s' LIMIT 1", [$login]);
 
 $go = true;
 if($result) if($result->num_rows == 0) $go = false;
