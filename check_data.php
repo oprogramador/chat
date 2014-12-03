@@ -4,6 +4,7 @@
  * Author: Piotr Sroczkowski
  *
  ****************************************/
+require_once 'util.php';
 
 function checkData($password, $rpassword, $email, $location) {
     if($password == '') {

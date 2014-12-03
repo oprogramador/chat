@@ -16,7 +16,7 @@ function sendMail($email, $subject, $msg) {
     $mailer = Swift_Mailer::newInstance($transport);
 
     $message = Swift_Message::newInstance($subject)
-        ->setFrom(array('abc@example.com' => 'ABC'))
+        ->setFrom(array('ajax@chat.com' => 'chat'))
         ->setTo(array($email))
         ->setBody($msg);
 

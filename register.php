@@ -29,8 +29,14 @@ if(checkData($password, $rpassword, $email, 'register_view.php')) {
         To verify your account please click the following link below:
         $link
 DELIM;
-        sendMail($email, 'Account verification', $msg);
-        header("Location: not_verified_account.php");
+        try {
+            sendMail($email, 'Account verification', $msg);
+            header("Location: not_verified_account.php");
+        } catch(\Exception $e) {
+            Util::toSession('errors', 'such email does not exist');
+            Util::query("DELETE FROM users WHERE BINARY id='%s' LIMIT 1", [$id]);
+            header('Location: register_view.php');
+        }
     } else {
         Util::toSession('errors', 'such username already exists');
         header('Location: register_view.php');

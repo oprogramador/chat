@@ -5,7 +5,7 @@
  *
  ****************************************/
 require_once 'util.php';
-header('Content-Type: image/png');
+//header('Content-Type: image/png');
 
 function breakLine($str, $n) {
     $ret = '';
@@ -16,43 +16,45 @@ function breakLine($str, $n) {
     return $ret;
 }
 
-$login_id = Util::getLoginId();
-$login = Util::getLogin();
-$partner_id = Util::getSessionData('partner_id');
-$partner = Util::getSessionData('partner');
+function drawImage($id, $author, $who, $time, $msg) {
+    $size = 50;
+    $nw = 20;
 
-$row = Util::queryRow('SELECT * FROM messages WHERE (sender=%1$s AND receiver=%2$s) OR (sender=%2$s AND receiver=%1$s) ORDER BY time DESC LIMIT 1', [$partner_id, $login_id]);
-
-//$msg = Util::queryCell('SELECT text FROM messages WHERE id=%s', [40], "text");
-$msg = $row['text'];
-$who = $row['sender']==$login_id ? 'me' : 'he';
-$time = $row['time'];
-$id = $row['id'];
-
-
-$size = 50;
-$nw = 20;
-
-if($id == Util::getSessionData('lastImage')) {
-    $im = imagecreate(1, 1);
-
-    $bg = imagecolorallocate($im, 255, 255, 255);
-} else {
     $im = imagecreate(400, $size*(floor(strlen($msg)/$nw)+1)+$nw);
 
     $bg = imagecolorallocate($im, 255, 255, 255);
     $me = imagecolorallocate($im, 0, 0, 255);
     $he = imagecolorallocate($im, 255, 0, 0);
     $textcolor = $who=='me' ? $me : $he;
-    $author = $who=='me' ? $login : $partner;
 
     //imagestring($im, 5, 0, 0, $msg, $textcolor);
 
     imagettftext($im, $nw/2, 0, 10, $nw, $textcolor, './Consolas.ttf', $author.' - '.(new \DateTime($time))->format('d/m/y H:i:s  '));
     imagettftext($im, $nw, 0, 10, $nw*2, $textcolor, './Consolas.ttf', breakLine($msg,$nw));
+
+
+    imagepng($im, $id);
+    imagedestroy($im);
 }
 
-Util::toSession('lastImage', $id);
+function drawImages($count) {
+    $login_id = Util::getLoginId();
+    $login = Util::getLogin();
+    $partner_id = Util::getSessionData('partner_id');
+    $partner = Util::getSessionData('partner');
 
-imagepng($im);
-imagedestroy($im);
+    $result = Util::query('SELECT * FROM messages WHERE (sender=%1$s AND receiver=%2$s) OR (sender=%2$s AND receiver=%1$s) ORDER BY time DESC LIMIT %s',
+        [$partner_id, $login_id, $count]);
+
+    $i = 0;
+    $dirname = 'images';
+    mkdir($dirname.DIRECTORY_SEPARATOR.$login, 0777, true);
+    mkdir($dirname.DIRECTORY_SEPARATOR.$partner, 0777, true);
+    while($row = $result->fetch_assoc()) {
+        drawImage($dirname.DIRECTORY_SEPARATOR.$login.DIRECTORY_SEPARATOR.$i.'.png',
+            $row['sender']==$login_id ? $login : $partner, $row['sender']==$login_id ? 'me' : 'he', $row['time'], $row['text']);
+        drawImage($dirname.DIRECTORY_SEPARATOR.$partner.DIRECTORY_SEPARATOR.$i.'.png',
+            $row['sender']==$login_id ? $login : $partner, $row['sender']!=$login_id ? 'me' : 'he', $row['time'], $row['text']);
+        $i++;
+    }
+}

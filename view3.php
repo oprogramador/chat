@@ -6,14 +6,7 @@ var imgsrc;
 $(document).ready(function() {
     imgsrc = $('#img').attr('src');
     setInterval(function() {
-        $('#img').attr('src',imgsrc+'?xxx='+Math.random());
-        var img = $('#img');
-        console.log('h='+img.height());
-        if(img.height()>0) {
-            var cl = img.clone();
-            cl.attr('id', 'img'+Math.random());
-            $('#div').append(img.clone());
-        }
+        //$('img').attr('src',imgsrc+'?xxx='+Math.random());
     }, 1000);
 });
 </script>
@@ -42,7 +35,11 @@ Your name: <?= $login ?>
 Your partner: <?= $partner ?>
 <br/>
 <div id="div" style="overflow:scroll;width:400px;height:500px">
-    <img id="img" src="draw.php"/>
+<?php for($i=19; $i>=0; $i--) { ?>
+<div>
+    <img id="img" src="<?= 'images'.DIRECTORY_SEPARATOR.$login.DIRECTORY_SEPARATOR.$i.'.png' ?>"/>
+</div>
+<?php } ?>
 </div>
 <br/>
 <form action="save.php" method="post"> 
