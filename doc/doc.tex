@@ -74,4 +74,11 @@ jest wtedy tworzony tymczasowy użytkownik, usuwany przy wylogowaniu), jak i z i
 Został użyty composer oraz biblioteka GD.\\
 Informacje potrzebne do uruchomienia aplikacji zawiera plik README.md.
 
+Wymyśliłem własny sposób stosunko efektywnego rozwiązania tego zadania. Obrazki są
+zapisywane do plików. Na stronie pojawia się 20 obrazków z ostatnimi wiadomościami.
+Część z nich to puste obrazki, dla których pliki nie istnieją (jednak nie z błędem,
+gdyż są otrzymane nie bezpośrednio po adresie pliku, ale jako żądanie HTTP).
+JavaScript co ułamek sekundy odświeża wszystkie obrazki (zmieniając ich atrybut src,
+konkretnie dodając dodatkowy parametr do żądania HTTP) oraz chowa puste obrazki.
+
 \end{document}

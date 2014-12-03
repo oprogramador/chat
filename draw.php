@@ -47,12 +47,12 @@ function drawImages() {
 
     $i = 0;
     $dirname = 'images';
-    mkdir($dirname.DIRECTORY_SEPARATOR.$login, 0777, true);
-    mkdir($dirname.DIRECTORY_SEPARATOR.$partner, 0777, true);
+    mkdir($dirname.DIRECTORY_SEPARATOR.$login.DIRECTORY_SEPARATOR.$partner, 0777, true);
+    mkdir($dirname.DIRECTORY_SEPARATOR.$partner.DIRECTORY_SEPARATOR.$login, 0777, true);
     while($row = $result->fetch_assoc()) {
-        drawImage($dirname.DIRECTORY_SEPARATOR.$login.DIRECTORY_SEPARATOR.$i.'.png',
+        drawImage($dirname.DIRECTORY_SEPARATOR.$login.DIRECTORY_SEPARATOR.$partner.DIRECTORY_SEPARATOR.$i.'.png',
             $row['sender']==$login_id ? $login : $partner, $row['sender']==$login_id ? 'me' : 'he', $row['time'], $row['text']);
-        drawImage($dirname.DIRECTORY_SEPARATOR.$partner.DIRECTORY_SEPARATOR.$i.'.png',
+        drawImage($dirname.DIRECTORY_SEPARATOR.$partner.DIRECTORY_SEPARATOR.$login.DIRECTORY_SEPARATOR.$i.'.png',
             $row['sender']==$login_id ? $login : $partner, $row['sender']!=$login_id ? 'me' : 'he', $row['time'], $row['text']);
         $i++;
     }

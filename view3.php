@@ -26,7 +26,7 @@ $(document).ready(function() {
             if($('#img'+i).width()<60) $('#img'+i).hide();
             else $('#img'+i).show();
         }
-    }, 1000);
+    }, 200);
 });
 </script>
 </head>

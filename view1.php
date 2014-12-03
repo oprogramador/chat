@@ -21,8 +21,10 @@ Password: <input type="password" name="password"/>
 
 </form>
 <a href="register_view.php">sign up</a>
-<a href="password_reset_view.php">I have forgotten my password.</a>
-<a href="login_reset_view.php">I have forgotten my login.</a>
+<?php
+//<a href="password_reset_view.php">I have forgotten my password.</a>
+//<a href="login_reset_view.php">I have forgotten my login.</a>
+?>
 <?php
 echo Util::getSessionData('errors'); 
 ?>
