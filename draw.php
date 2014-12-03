@@ -5,7 +5,6 @@
  *
  ****************************************/
 require_once 'util.php';
-//header('Content-Type: image/png');
 
 function breakLine($str, $n) {
     $ret = '';
@@ -37,14 +36,14 @@ function drawImage($id, $author, $who, $time, $msg) {
     imagedestroy($im);
 }
 
-function drawImages($count) {
+function drawImages() {
     $login_id = Util::getLoginId();
     $login = Util::getLogin();
     $partner_id = Util::getSessionData('partner_id');
     $partner = Util::getSessionData('partner');
 
     $result = Util::query('SELECT * FROM messages WHERE (sender=%1$s AND receiver=%2$s) OR (sender=%2$s AND receiver=%1$s) ORDER BY time DESC LIMIT %s',
-        [$partner_id, $login_id, $count]);
+        [$partner_id, $login_id, Util::getImgCount()]);
 
     $i = 0;
     $dirname = 'images';

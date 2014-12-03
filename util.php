@@ -78,4 +78,7 @@ class Util {
         if(!$row['verified'] && $row['password']!='') header('Location: not_verified_account.php');
     }
 
+    public static function getImgCount() {
+        return 20;
+    }
 }

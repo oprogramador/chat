@@ -15,6 +15,6 @@ echo 'partner='.$partner;
 
 Util::query("INSERT INTO messages (text, sender, receiver) VALUES ('%s', %s, %s)", [$text, $login, $partner]);
 setcookie('ajax', Util::randStrAlpha(40), time() + (86400 * 30), "/");
-drawImages(20);
+drawImages();
 
 header("Location: view3.php");
