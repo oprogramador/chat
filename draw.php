@@ -1,9 +1,4 @@
 <?php
-/****************************************
- *
- * Author: Piotr Sroczkowski
- *
- ****************************************/
 require_once 'util.php';
 
 function breakLine($str, $n) {

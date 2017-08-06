@@ -1,10 +1,4 @@
 <?php
-/****************************************
- *
- * Author: Piotr Sroczkowski
- *
- ****************************************/
-
 class Util {
 
     public static function session($index) {

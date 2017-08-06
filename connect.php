@@ -1,9 +1,4 @@
 <?php
-/****************************************
- *
- * Author: Piotr Sroczkowski
- *
- ****************************************/
 require_once 'util.php';
 
 $partner_id = $_GET['partner_id'];

@@ -1,9 +1,4 @@
 <?php
-/****************************************
- *
- * Author: Piotr Sroczkowski
- *
- ****************************************/
 require_once 'util.php';
 
 $login = Util::getLogin();

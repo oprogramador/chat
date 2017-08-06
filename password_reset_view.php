@@ -9,11 +9,6 @@ Password reset<br/>
 <div>Login: <input name="login"/></div>
 <button>OK</button>
 <?php
-/****************************************
- *
- * Author: Piotr Sroczkowski
- *
- ****************************************/
 require_once 'util.php'; 
 if(!isset($_SESSION['errors'])) $_SESSION['errors']='';
 echo $_SESSION['errors'];

@@ -12,11 +12,6 @@
 <div>E-mail: <input name="email"/></div>
 <button>OK</button>
 <?php
-/****************************************
- *
- * Author: Piotr Sroczkowski
- *
- ****************************************/
 require_once 'util.php'; 
 echo Util::session('errors');
 ?>
